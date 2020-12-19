@@ -127,7 +127,7 @@ public class MySet {
                     new Tuple(this.bounds.get(h).get().bound, false));
         }
 
-        // Avoid compareAndSet compare memory location rathre than value
+        // CAS compare address rather than value
         if (this.bounds.get(h).get().bound == index) {
             boundEqualsToIndex = true;
             if (this.bounds.get(h).get().scanning == false) {
@@ -138,7 +138,6 @@ public class MySet {
         }
 
         if (index > 0) {
-            // A problem may occur here, how does CAS compare two objects.
             while (boundEqualsToIndex && this.bounds.get(h).compareAndSet(indexFalse, indexTrue)) {
                 int _i = index - 1;
                 while (_i > 0 && !this.DoesBucketContainCollision(h, _i)) {
